@@ -14,18 +14,15 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	unsigned char *str;
-	size_t len2;
+	char	*str;
+	size_t	len2;
 
 	len2 = ft_strlen(s);
 	if (start > len2)
 		return (NULL);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (!str)
+	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
-	if (start > len2 )
-		return (NULL);
-	ft_strncpy(str, s + start, len);
+	ft_strlcpy(str, s + start, len + 1);
 	return (str);
 }
 /*

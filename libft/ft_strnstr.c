@@ -19,8 +19,6 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 
 	if (s2[0] == '\0')
 		return ((char *)s1);
-	if (n == 0)
-		return (NULL);
 	i = 0;
 	while (s1[i] && i < n)
 	{
@@ -38,7 +36,7 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
-/*
+
 #include <stdio.h>
 
 int	main(void)
@@ -47,8 +45,7 @@ int	main(void)
 	char	*str2 = "dolor";
 	char	*find;
 
-	find = ft_strnstr(str1, str2, 0);
+	find = ft_strnstr(str1, str2, 20);
 	printf("%s", find);
 	return (0);
 }
-*/

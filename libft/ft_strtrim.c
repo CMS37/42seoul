@@ -15,7 +15,7 @@
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	int	len_s1;
-	int len_s2;
+	int	len_s2;
 	int	i;
 
 	len_s1 = ft_strlen(s1);
@@ -23,12 +23,13 @@ char	*ft_strtrim(char const *s1, char const *set)
 	i = 0;
 	while (i < len_s1)
 	{
-		if(s1[i] == set[0])
-			return(ft_strnstr(s1, set, len_s2));
+		if (s1[i] == set[0])
+			return (ft_strnstr(s1, set, len_s2));
 		i++;
 	}
 	return ((char *)s1);
 }
+
 /*
 #include <stdio.h>
 

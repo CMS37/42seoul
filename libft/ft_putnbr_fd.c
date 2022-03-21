@@ -14,21 +14,9 @@
 
 void	ftprint(int n, int fd)
 {
-	int	arr[10];
-	int	i;
-
-	i = 9;
-	while (n > 0)
-	{
-		arr[i] = (n % 10 + '0');
-		n /= 10;
-		i--;
-	}
-	while (i < 10)
-	{
-		ft_putchar_fd(arr[i], fd);
-		i++;
-	}
+	if (n >= 10)
+		ftprint(n / 10, fd);
+	write(fd, &"0123456789"[n % 10], 1);
 }
 
 void	ft_putnbr_fd(int n, int fd)

@@ -16,7 +16,8 @@ void	*ft_calloc(size_t nelem, size_t elsize)
 {
 	void	*arr;
 
-	if(!(arr = malloc(elsize * nelem)))
+	arr = malloc(elsize * nelem);
+	if (!arr)
 		return (NULL);
 	ft_bzero(arr, (nelem * elsize));
 	return (arr);

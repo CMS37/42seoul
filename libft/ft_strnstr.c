@@ -36,7 +36,7 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
-
+/*
 #include <stdio.h>
 
 int	main(void)
@@ -49,3 +49,4 @@ int	main(void)
 	printf("%s", find);
 	return (0);
 }
+*/

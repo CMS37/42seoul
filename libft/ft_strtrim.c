@@ -14,23 +14,26 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	int	len_s1;
-	int	len_s2;
-	int	i;
+	size_t	start;
+	size_t	end;
+	char	*str;
 
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(set);
-	i = 0;
-	while (i < len_s1)
-	{
-		if (s1[i] == set[0])
-			return (ft_strnstr(s1, set, len_s2));
-		i++;
-	}
-	return ((char *)s1);
+	if (s1 == NULL)
+		return (NULL);
+	if (set == NULL)
+		return (ft_strdup(s1));
+	start = 0;
+	end = ft_strlen(s1);
+	while (s1[start] && ft_strchr(set, s1[start]))
+		start++;
+	while (s1[end - 1] && ft_strchr(set, s1[end - 1]))
+		end--;
+	str = (char *)malloc(sizeof(char) * (end - start + 1));
+	ft_strlcpy(str, s1 + start, end - start + 1);
+	return (str);		
 }
 
-/*
+
 #include <stdio.h>
 
 int main()
@@ -43,4 +46,3 @@ int main()
 
 	printf("%s", s3);
 }
-*/

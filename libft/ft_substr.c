@@ -18,19 +18,16 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	len2;
 
 	len2 = ft_strlen(s);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (!str || !s)
-		return (0);
 	if (len2 < start)
-	{
-		str = "";
-		return (str);
-	}
+		return (ft_strdup(""));
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (0);
 	ft_strlcpy(str, s + start, len + 1);
 	return (str);
 }
 
-
+/*
 #include <stdio.h>
 
 int main()
@@ -45,3 +42,4 @@ int main()
 
 	return (0);
 }
+*/

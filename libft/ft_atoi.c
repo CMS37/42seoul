@@ -50,7 +50,7 @@ int	ft_atoi(const char *nptr)
 	}
 	return (nbr * m);
 }
-
+ 
 // #include <stdio.h>
 
 // int main(void)

@@ -14,5 +14,14 @@
 
 t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	ft_lstiter(lst, f);
+	t_list	*new;
+
+	if (!lst || !f || !del)
+		return (0);
+	while (lst)
+	{
+		new = ft_lstnew((*f)(lst->content));
+		new = new->next;
+		lst = lst->next;
+	}
 }

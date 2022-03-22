@@ -6,107 +6,154 @@
 /*   By: min-cho <min-cho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:03:25 by min-cho           #+#    #+#             */
-/*   Updated: 2022/03/15 04:34:37 by min-cho          ###   ########seoul.kr  */
+/*   Updated: 2022/03/22 21:15:03 by min-cho          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	strcheck(char c, char *str)
+size_t	ft_strlen(const char *s)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (0);
+	while (s[i])
 		i++;
-	}
-	return (1);
+	return (i);
 }
 
-void	strcpy1(char *arr, char *src, char *charset)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	int	i;
+	size_t	i;
+	size_t	len;
 
+	len = ft_strlen(src);
 	i = 0;
-	while (strcheck(src[i], charset) == 1)
+	if (size == 0)
+		return (len);
+	while (i + 1 < size && src[i])
 	{
-		arr[i] = src[i];
+		dest[i] = src[i];
 		i++;
 	}
-	arr[i] = '\0';
+	dest[i] = '\0';
+	return (len);
 }
 
-int	arrlen(char *str, char *charset)
+size_t	arrlen(char const *s, char c)
 {
-	int	cnt;
-	int	i;
+	size_t	cnt;
+	size_t	i;
 
 	i = 0;
 	cnt = 0;
-	while (str[i])
-	{
-		if ((strcheck(str[i], charset)))
-			cnt++;
+	while (s[i] && s[i] == c)
 		i++;
+	while(s[i])
+	{
+		if (s[i] == c)
+		{
+			cnt++;
+			while (s[i] && s[i] == c)
+				i++;
+		}
+		else
+			i++;
 	}
+	if (s[i - 1] != c)
+		cnt++;
 	return (cnt);
 }
 
-void	str_end(char **arr, char *charset, char *str)
+size_t	nextend(char const *s, char c)
 {
-	int	i;
-	int	j;
-	int	m;
-
-	m = 0;
+	size_t	i;
+	
 	i = 0;
-	while (str[i] != '\0')
-	{
-		if (strcheck(str[i], charset) == 0)
-			i++;
-		else
-		{
-			j = 0;
-			while (strcheck(str[i + j], charset) == 1)
-				j++;
-			arr[m] = (char *)malloc(sizeof(char) * (j + 1));
-			strcpy1(arr[m], str + i, charset);
-			i += j;
-			m++;
-		}
-	}
-	arr[m] = (char *)malloc(sizeof(char));
-	arr[m] = 0;
+	while (s[i] != c)
+		i++;
+	return (i);
 }
 
-char	**ft_split(char *str, char *charset)
+char	**ft_split(char const *s, char c)
 {
 	char	**arr;
-	int		i;
+	size_t	i;
+	size_t	len;
+	size_t	len_arr;
 
-	arr = (char **)malloc(sizeof(char *) * (arrlen(str, charset) + 1));
-	if (arr == NULL)
+	if (!s)
+		return (NULL);
+	len_arr = arrlen(s, c);
+	arr = (char **)malloc(sizeof(char *) * (len_arr + 1));
+	if (!arr)
 		return (NULL);
 	i = 0;
-	if (str[i] != 0)
+	while (i < len_arr)
 	{
-		if (*charset == '\0')
-		{
-			arr[0] = (char *)malloc(sizeof(char) * arrlen(str, charset) + 1);
-			while (str[i])
-			{
-				arr[0][i] = str[i];
-				i++;
-			}
-			arr[0][i] = '\0';
-			arr[1] = (char *)malloc(sizeof(char));
-			arr[1] = 0;
-			return (arr);
-		}
-		str_end(arr, charset, str);
+		while (*s && *s == c)
+			s++;
+		len = nextend(s, c);
+		arr[i] = (char *)malloc(sizeof(char) * (len + 1));
+		if (!arr[i])
+			return (NULL);
+		ft_strlcpy(arr[i], s, len + 1);
+		if (i < len_arr)
+			s += len;
+		i++;
 	}
+	arr[i] = NULL;
 	return (arr);
+}
+
+#include <stdio.h>
+
+static void			ft_print_result(char const *s)
+{
+	int		len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	write(1, s, len);
+}
+
+static void			ft_print_tabstr(char **tabstr)
+{
+	int		i;
+
+	i = 0;
+	while (tabstr[i] != NULL)
+	{
+		ft_print_result(tabstr[i]);
+		write(1, "\n", 1);
+		free(tabstr[i]);
+		i++;
+	}
+	free(tabstr);
+}
+
+static void			check_split(char *s, char c)
+{
+	char	**tabstr;
+
+	if (!(tabstr = ft_split(s, c)))
+		ft_print_result("NULL");
+	else
+		ft_print_tabstr(tabstr);
+}
+
+int	main()
+{
+	printf("1\n");
+	check_split("          ", ' ');
+	printf("2\n");
+	check_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse", ' ');
+	printf("3\n");
+	check_split("   lorem   ipsum dolor     sit amet, consectetur   adipiscing elit. Sed non risus. Suspendisse   ", ' ');
+	printf("4\n");
+	check_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultricies diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.", 'i');
+	printf("5\n");
+	check_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultricies diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.", 'z');
+	return (0);
 }

@@ -16,13 +16,10 @@ int	ft_nbrlen(int n)
 {
 	int i;
 
-	i = 1;
-	if (n < 0)
-	{
-		n *= -1;
+	i = 0;
+	if (n <= 0)
 		i++;
-	}
-	while (n > 9)
+	while (n != 0)
 	{
 		n /= 10;
 		i++;
@@ -34,30 +31,42 @@ char	*ft_itoa(int n)
 {
 	char	*str;
 	int		nbr_len;
-	int		i;
-
-	i = 0;
-	nbr_len = ft_nbrlen(n);
-	if (!(str = (char *)malloc(sizeof(char) * (nbr_len + 1))))
-		return (NULL);
+	size_t	nbr;
+	
 	if (n == -2147483648)
-		return ("-2147483648\0");
-	if (n == 0)
-		return ("0\0");
+		return(ft_strdup("-2147483648"));
+	nbr_len = ft_nbrlen(n);
+	str = (char *)malloc(sizeof(char) * nbr_len + 1);
+	if (!str)
+		return (NULL);
+	nbr = (n < 0) ? -n : n;
+	str[nbr_len] = '\0';
+	nbr_len--;
+	while (nbr_len >= 0)
+	{
+		str[nbr_len] = (nbr % 10) + '0';
+		nbr /= 10;
+		nbr_len--;
+	}
 	if (n < 0)
-	{
-		str[i] = '-';
-		n *= -1;
-		i++;
-		nbr_len--;
-	}
-	while (nbr_len > 0)
-	{
-		str[nbr_len - 1] = (n % 10) + '0';
-		n /= 10;
-		i++;
-		nbr_len--;
-	}
-	str[i] = '\0';
+		str[0] = '-';
 	return (str);
 }
+/*
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+int main ()
+{
+  int i;
+  char *str;
+
+  i = -451241;
+
+  str = ft_itoa(i);
+  printf ("%s\n",str);
+  free(str);
+  return 0;
+}
+*/

@@ -28,6 +28,7 @@ FILES = ft_atoi.c \
 	ft_lstlast.c \
 	ft_lstnew.c \
 	ft_lstsize.c \
+	ft_lstmap.c \
 	ft_memchr.c \
 	ft_memcmp.c \
 	ft_memcpy.c \

@@ -17,6 +17,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*str;
 	size_t	len2;
 
+	if (!s)
+		return (NULL);
 	len2 = ft_strlen(s);
 	if (len2 < start)
 		return (ft_strdup(""));
@@ -26,20 +28,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ft_strlcpy(str, s + start, len + 1);
 	return (str);
 }
-
-/*
-#include <stdio.h>
-
-int main()
-{
-	char	*str1 = "i want copy this word";
-	char	*str2;
-
-	str2 = ft_substr(str1, 7, 6);
-	printf("%s", str2);
-
-	free(str2);
-
-	return (0);
-}
-*/

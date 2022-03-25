@@ -6,7 +6,7 @@
 /*   By: min-cho <min-cho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:03:25 by min-cho           #+#    #+#             */
-/*   Updated: 2022/03/24 19:10:45 by min-cho          ###   ########seoul.kr  */
+/*   Updated: 2022/03/25 19:59:02 by min-cho          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**ft_split(char const *s, char c)
 		if (!arr[i])
 			return (NULL);
 		ft_strlcpy(arr[i], s, len + 1);
-		if (i < len_arr)
+//		if (i < len_arr)
 			s += len;
 		i++;
 	}

@@ -20,15 +20,6 @@ FILES = ft_atoi.c \
 	ft_isdigit.c \
 	ft_isprint.c \
 	ft_itoa.c \
-	ft_lstadd_back.c \
-	ft_lstadd_front.c \
-	ft_lstclear.c \
-	ft_lstdelone.c \
-	ft_lstiter.c \
-	ft_lstlast.c \
-	ft_lstnew.c \
-	ft_lstsize.c \
-	ft_lstmap.c \
 	ft_memchr.c \
 	ft_memcmp.c \
 	ft_memcpy.c \
@@ -55,18 +46,33 @@ FILES = ft_atoi.c \
 	ft_substr.c \
 	ft_tolower.c \
 	ft_toupper.c
+
+FILSE2 = ft_lstadd_back.c \
+	ft_lstadd_front.c \
+	ft_lstclear.c \
+	ft_lstdelone.c \
+	ft_lstiter.c \
+	ft_lstlast.c \
+	ft_lstnew.c \
+	ft_lstsize.c \
+	ft_lstmap.c \
+
 OBJS = ${FILES:.c=.o}
+OBJS2 = ${FILES2:.c=.o}
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 INCS = includes
 
 $(NAME): $(OBJS)
-			ar -rcs $(NAME) $(OBJS)
+	ar -rcs $(NAME) $(OBJS)
 
 all: $(NAME)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCS)
+
+bonus : $(OBJS2)
+	ar -rcs $(NAME) $(OBJS2)
 
 clean:
 	rm -f $(OBJS)
@@ -75,3 +81,9 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re
+
+# r : 새로운 옵젝파일이면 추가,기존 파일이면 치환
+# c : 아카이브(라이브러리파일)생성, 또는 갱신하는경우에도 경고메세지 출력 x
+# s : 아카이브 인덱스 생성 < 안할경우 링크 속도가 느려지고 환경에따라 에러발생

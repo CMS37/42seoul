@@ -6,7 +6,7 @@
 /*   By: min-cho <min-cho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:03:25 by min-cho           #+#    #+#             */
-/*   Updated: 2022/03/25 19:59:02 by min-cho          ###   ########seoul.kr  */
+/*   Updated: 2022/04/10 19:30:08 by min-cho          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@ size_t	nextend(char const *s, char c)
 	return (i);
 }
 
+char	**arr_free(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+	return (NULL);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**arr;
@@ -68,7 +82,7 @@ char	**ft_split(char const *s, char c)
 		len = nextend(s, c);
 		arr[i] = (char *)malloc(sizeof(char) * (len + 1));
 		if (!arr[i])
-			return (NULL);
+			return (arr_free(arr));
 		ft_strlcpy(arr[i], s, len + 1);
 //		if (i < len_arr)
 			s += len;

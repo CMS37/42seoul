@@ -17,9 +17,15 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-# define BUFFSIZE 10000
-
+# define BUFSIZE 4
 
 char	*get_next_line(int fd);
+char    *ft_find_line(int fd, char *backup);
+char	*ft_make_line(char *backup);
+char	*ft_left_line(char *backup);
+char	*ft_strchr(char	*str);
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlen(char *s);
+size_t	ft_strlcpy(char *dest, char *src, size_t size);
 
 #endif

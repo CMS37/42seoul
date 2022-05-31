@@ -12,10 +12,69 @@
 
 #include "get_next_line.h"
 
-size_t	read(int fd, void *buf, size_t nbytes)
-//(읽을 파일의 디스크립터, 읽어들인 데이터를 저장할 버퍼(배열), 
-// 읽어들일 데이터의 최대 길이(버퍼미만))
-// 반환값 -> 읽어들인 데이터의 길이
+size_t	ft_strlen(char *s)
+{
+	size_t	i;
 
-//파일을 읽어서 개행문자를 만나면 해당line을 반환
-//개행문자 이후내용은 버퍼에 저장
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
+}
+
+size_t	ft_strlcpy(char *dest, char *src, size_t size)
+{
+	size_t	i;
+	size_t	len;
+
+	len = ft_strlen(src);
+	i = 0;
+	if (size == 0)
+		return (len);
+	while (i + 1 < size && src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (len);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*str;
+	size_t	len_s1;
+	size_t	len_s2;
+
+
+	if (!s2)
+		return (NULL);
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	str = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, s1, len_s1 + 1);
+	ft_strlcpy(str + len_s1, s2, len_s2 + 1);
+	return (str);
+}
+
+char	*ft_strchr(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	if (str[i] == '\0')
+		return ((char *)(str + i));
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return ((char *)(str + i));
+		i++;
+	}
+	return (0);
+}

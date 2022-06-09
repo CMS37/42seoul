@@ -17,8 +17,6 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-# define BUFSIZE 4
-
 char	*get_next_line(int fd);
 char    *ft_find_line(int fd, char *backup);
 char	*ft_make_line(char *backup);

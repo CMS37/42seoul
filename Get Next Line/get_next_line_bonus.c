@@ -17,13 +17,13 @@ char	*ft_find_line(int fd, char *backup)
 	char	*buf;
 	int		i;
 
-	buf = (char *)malloc((BUFSIZE + 1) * sizeof(char));
+	buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
 	i = 1;
 	while (!ft_strchr(backup) && i != 0)
 	{
-		i = read(fd, buf, BUFSIZE);
+		i = read(fd, buf, BUFFER_SIZE);
 		if (i == -1)
 		{
 			free(buf);
@@ -95,7 +95,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*backup[256];
 
-	if (fd < 0 || BUFSIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	backup[fd] = ft_find_line(fd, backup[fd]);
 	if (!backup[fd])

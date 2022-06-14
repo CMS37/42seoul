@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(char *s)
 {
@@ -66,7 +66,7 @@ char	*ft_strchr(char *str)
 	int	i;
 
 	if (!str)
-		return (0);
+		return (NULL);
 	i = 0;
 	if (str[i] == '\0')
 		return (0);

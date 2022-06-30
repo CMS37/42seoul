@@ -12,16 +12,38 @@
 
 #include "get_next_line.h"
 
-char	*ft_find_line(int fd, char *backup)
+t_list	*ft_list(t_list **start, int fd)
+{
+	t_list	*node;
+
+	node = *start;
+	while (node)
+	{
+		if (node->fd == fd)
+			return (node);
+		node = node->next;
+	}
+	node = (t_list *)malloc(sizeof(t_list));
+	if (!node)
+		return(NULL);
+	node->fd = fd;
+	node->line = "\0";
+	node->next = *start;
+	*start = node;
+	return (node);
+}
+
+char	*ft_find_line(int fd, char *line)
 {
 	char	*buf;
+	char	*line2;
 	int		i;
 
 	buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
 	i = 1;
-	while (!ft_strchr(backup) && i != 0)
+	while (!ft_strchr(line) && i != 0)
 	{
 		i = read(fd, buf, BUFFER_SIZE);
 		if (i == -1)
@@ -30,38 +52,41 @@ char	*ft_find_line(int fd, char *backup)
 			return (NULL);
 		}
 		buf[i] = '\0';
-		backup = ft_strjoin(backup, buf);
+		line2 = ft_strdup(line);
+		free(line);
+		line = ft_strjoin(line2, buf);
+		free(line2);
 	}
 	free (buf);
-	return (backup);
+	return (line);
 }
 
-char	*ft_make_line(char *backup)
+char	*ft_make_line(char *line)
 {
-	char	*line;
+	char	*line2;
 	int		i;
 
 	i = 0;
-	if (!backup[i])
+	if (!line[i])
 		return (NULL);
-	while (backup[i] && backup[i] != '\n')
+	while (line[i] && line[i] != '\n')
 		i++;
-	line = (char *)malloc(sizeof(char) * (i + 1));
-	if (!line)
+	line2 = (char *)malloc(sizeof(char) * (i + 1));
+	if (!line2)
 		return (NULL);
 	i = 0;
-	while (backup[i] && backup[i] != '\n')
+	while (line[i] && line[i] != '\n')
 	{
-		line[i] = backup[i];
+		line2[i] = line[i];
 		i++;
 	}
-	if (backup[i] == '\n')
+	if (line[i] == '\n')
 	{
-		line[i] = backup[i];
+		line2[i] = line[i];
 		i++;
 	}
-	line[i] = '\0';
-	return (line);
+	line2[i] = '\0';
+	return (line2);
 }
 
 char	*ft_left_line(char *backup)
@@ -92,18 +117,18 @@ char	*ft_left_line(char *backup)
 
 char	*get_next_line(int fd)
 {
-	char		*line;
-	static char	*backup[256];
+	char			*new_line;
+	t_list			*line;
+	static t_list	*head;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	line = ft_list(&head, fd);
+	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
 		return (NULL);
-	backup[fd] = ft_find_line(fd, backup[fd]);
-	if (!backup[fd])
-	{	
-		free(backup[fd]);
+	line->line = ft_find_line(fd, line->line);
+	if (!line->line)
 		return (NULL);
-	}
-	line = ft_make_line(backup[fd]);
-	backup[fd] = ft_left_line(backup[fd]);
-	return (line);
+	new_line = ft_make_line(line->line);
+	line->line = ft_left_line(line->line);
+	free(line);
+	return (new_line);
 }

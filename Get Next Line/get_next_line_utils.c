@@ -57,7 +57,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	ft_strlcpy(str, s1, len_s1 + 1);
 	ft_strlcpy(str + len_s1, s2, len_s2 + 1);
-	free(s1);
 	return (str);
 }
 
@@ -77,4 +76,26 @@ char	*ft_strchr(char *str)
 		i++;
 	}
 	return (0);
+}
+
+char	*ft_strdup(char *str)
+{
+	int		i;
+	int		j;
+	char	*s1;
+
+	i = 0;
+	j = 0;
+
+	i = ft_strlen(str);
+	s1 = (char *)malloc(sizeof(char) * (i + 1));
+	if (!s1)
+		return (NULL);
+	while (i--)
+	{
+		s1[j] = str[j];
+		j++;
+	}
+	s1[j] = '\0';
+	return (s1);
 }

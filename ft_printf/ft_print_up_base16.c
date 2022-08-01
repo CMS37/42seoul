@@ -1,0 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_up_base16.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: min-cho <min-cho@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/02 02:55:12 by min-cho           #+#    #+#             */
+/*   Updated: 2022/08/02 02:55:12 by min-cho          ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+
+int	ft_print_up_base16(unsigned int ap)
+{
+	char	*str;
+	int		result;
+
+	result = 0;
+	if (ap >= 16)
+	{
+		result += ft_print_up_base16(ap / 16);
+		result += ft_print_up_base16(ap % 16);
+	}
+	if ((ap <= 15) && (ap >= 0))
+		result += ft_print_char("0123456789ABCEDF"[ap % 16]);
+	return (result);
+}

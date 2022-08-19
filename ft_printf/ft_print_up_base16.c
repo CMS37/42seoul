@@ -14,7 +14,6 @@
 
 int	ft_print_up_base16(unsigned int ap)
 {
-	char	*str;
 	int		result;
 
 	result = 0;
@@ -24,6 +23,6 @@ int	ft_print_up_base16(unsigned int ap)
 		result += ft_print_up_base16(ap % 16);
 	}
 	if ((ap <= 15) && (ap >= 0))
-		result += ft_print_char("0123456789ABCEDF"[ap % 16]);
+		result += ft_print_char("0123456789ABCDEF"[ap % 16]);
 	return (result);
 }

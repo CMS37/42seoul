@@ -13,20 +13,19 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#include<stdio.h>
-#include<stdarg.h>
-#include<unistd.h>
-#include<stdlib.h>
+#include <stdarg.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-int	ft_print_char(int ap);
+int	ft_print_char(char ap);
 int	ft_print_string(char *ap);
 int	ft_print_pointer(unsigned long long ap);
 int	ft_print_nbr(int ap);
 int	ft_print_unbr(unsigned int ap);
 int	ft_print_low_base16(unsigned int ap);
 int	ft_print_up_base16(unsigned int ap);
-
+int	ft_printf(const char *format, ...);
 void	ft_bzero(char *str, int n);
-
 size_t	ft_strlen(char *s);
+
 #endif

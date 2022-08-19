@@ -19,18 +19,17 @@ int	ft_print_nbr(int ap)
 
 	nbr = (long long)ap;
 	result = 0;
-
 	if (nbr < 0)
 	{
 		result += ft_print_char('-');
 		nbr *= -1;
 	}
-	if	(nbr >= 10)
+	if (nbr >= 10)
 	{
 		result += ft_print_nbr(nbr / 10);
 		result += ft_print_nbr(nbr % 10);
 	}
 	if ((nbr >= 0) && (nbr <= 9))
 		result += ft_print_char(nbr + '0');
-	return(result);
+	return (result);
 }

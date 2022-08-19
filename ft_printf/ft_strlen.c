@@ -6,11 +6,11 @@
 /*   By: min-cho <min-cho@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:24:24 by min-cho           #+#    #+#             */
-/*   Updated: 2022/08/02 02:52:14 by min-cho          ###   ########seoul.kr  */
+/*   Updated: 2022/08/19 08:26:31 by min-cho          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 size_t	ft_strlen(char *s)
 {

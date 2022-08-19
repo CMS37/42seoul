@@ -14,7 +14,6 @@
 
 int	ft_print_low_base16(unsigned int ap)
 {
-	char	*str;
 	int		result;
 
 	result = 0;

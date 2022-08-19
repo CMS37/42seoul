@@ -14,29 +14,16 @@
 
 int	ft_print_pointer(unsigned long long ap)
 {
-	char	*str;
-	int		i;
 	int		result;
-	
+
 	result = 0;
-//	result += write(1, "0x", 2);
-	i = 16;
-	str = (char *)malloc(sizeof(char) * i + 1);
-	if (!str)
-		return (0);
-	str[i] = '\0';
-	i--;
-	while (ap >= 16)
+	result += write(1, "0x", 2);
+	if (ap >= 16)
 	{
-		str[i] = "0123456789abcdef"[ap % 16];
-		ap = ap / 16;
-		i--;
+		result += ft_print_pointer(ap / 16);
+		result += ft_print_pointer(ap % 16);
 	}
-	str[i] = "0123456789abcdef"[ap];
-	i--;
-	if (i > 0)
-		ft_bzero(str, i);
-	result += ft_print_string(str);
-	free(str);
+	if ((ap <= 15) && (ap >= 0))
+		result += ft_print_char("0123456789abcdef"[ap % 16]);
 	return (result);
 }

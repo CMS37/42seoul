@@ -14,14 +14,18 @@
 
 int	ft_print_string(char *ap)
 {
-	int i;
-	int result;
+	int	i;
 
 	i = 0;
-	while(ap[i])
+	if (ap == NULL)
 	{
-		write(1,&ap[i], 1);
+		write(1, "(null)", 6);
+		return (6);
+	}
+	while (ap[i])
+	{
+		write(1, &ap[i], 1);
 		i++;
 	}
-	return(ft_strlen(ap));
+	return (ft_strlen(ap));
 }

@@ -15,16 +15,16 @@
 int	ft_print_unbr(unsigned int ap)
 {
 	unsigned int	nbr;
-	int			result;
+	int				result;
 
 	nbr = ap;
 	result = 0;
-	if	(nbr >= 10)
+	if (nbr >= 10)
 	{
 		result += ft_print_nbr(nbr / 10);
 		result += ft_print_nbr(nbr % 10);
 	}
 	if ((nbr >= 0) && (nbr <= 9))
 		result += ft_print_char(nbr + '0');
-	return(result);
+	return (result);
 }
